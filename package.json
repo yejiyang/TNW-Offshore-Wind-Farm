@@ -1,0 +1,21 @@
+{
+  "name": "m",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "watch": "webpack --watch",
+    "compile": "webpack",
+    "start": "node server.js"
+  },
+  "author": "",
+  "description": "",
+  "dependencies": {
+    "ol": "^10.2.0"
+  },
+  "devDependencies": {
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.6.2",
+    "webpack": "^5.95.0",
+    "webpack-cli": "^5.1.4"
+  }
+}
