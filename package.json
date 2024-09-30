@@ -4,7 +4,7 @@
   "main": "server.js",
   "scripts": {
     "watch": "webpack --watch",
-    "compile": "webpack",
+    "build": "webpack",
     "start": "node server.js"
   },
   "author": "",
