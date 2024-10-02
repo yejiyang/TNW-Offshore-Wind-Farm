@@ -39,6 +39,10 @@ conv()
     rm $pathOutTmp
 }
 
+if [ ! -d $directoryOut ]; then
+    mkdir $directoryOut
+fi
+
 for file in $(ls ${directoryIn}/*.grd) ; do
     conv $(basename $file)
 done
