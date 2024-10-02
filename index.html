@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home</title>
+        <link rel="stylesheet" href="node_modules/ol/ol.css">
+        <style>
+          .map {
+            width: 100%;
+            height: 400px;
+          }
+          #map:focus {
+            outline: #4A74A8 solid 0.15em;
+          }
+          #layer_toggles>li {
+            margin: 0.5em;
+            min-width: 8em;
+          }
+          #layer_toggles>li::marker {
+            content: "";
+          }
+        </style>
+    </head>
+    <body>
+        <ul id="layer_toggles" style="display: flex; flex-direction: row;">
+      
+        </ul>
+        <div id="map" class="map" tabindex="0"></div>
+        <script src="./dist/bundle.js"></script>
+    </body>
+</html>
