@@ -7,9 +7,10 @@ import { GeoTIFF, OSM } from "ol/source";
 const source = new GeoTIFF({
   sources: [
     {
-      url: 'https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/36/Q/WD/2020/7/S2A_36QWD_20200701_0_L2A/TCI.tif',
+      url: "/data/TNW-R00.tif",
     },
-  ]
+  ],
+  projection: 'EPSG:4326',
 });
 
 const map = new ol.Map({

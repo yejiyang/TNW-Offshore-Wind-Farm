@@ -28,12 +28,43 @@ async function main() {
                     contentType = 'image/png';
                     break;
             }
+            let data = await fs.readFile(`./${url}`);
+
+            if (req.headers.range) {
+                const parts = req.headers.range.replace(/bytes=/, "").split("-");
+                let start;
+                if (parts[0] !== "") {
+                    start = parseInt(parts[0], 10);
+                }
+                let end;
+                if (parts[1]) {
+                    end = parseInt(parts[1], 10);
+                    if (start === undefined) { // -end
+                        start = data.length - end;
+                        end = data.length - 1;
+                    }
+                }
+                else {
+                    // start-
+                    end = data.length - 1;
+                }
+                if (end > data.length - 1) {
+                    end = data.length - 1;
+                }
+                const chunksize = (end - start) + 1;
+                res.setHeader('Content-Range', `bytes ${start}-${end}/${data.length}`);
+                res.setHeader('Content-Length', chunksize);
+                res.setHeader('Content-Type', contentType);
+                res.writeHead(206);
+                res.end(data.subarray(start, end + 1));
+                return;
+            }
             if (contentType) {
                 res.writeHead(200, {
                     'Content-Type': contentType
                 });
             }
-            let data = await fs.readFile(`./${url}`);
+
             res.end(data);
         } catch {
             res.statusCode = 404;
