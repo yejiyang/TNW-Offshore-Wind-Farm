@@ -3,6 +3,7 @@ import WebGLTile from 'ol/layer/WebGLTile';
 import TileLayer from "ol/layer/Tile";
 import * as ol from "ol";
 import { GeoTIFF, OSM } from "ol/source";
+import { fromUserCoordinate, fromUserExtent, toUserCoordinate, useGeographic } from 'ol/proj';
 
 interface LayerData {
   source: GeoTIFF;
@@ -56,6 +57,8 @@ const map = new ol.Map({
 
 let mm = document.getElementById("layer_toggles") as HTMLOListElement;
 
+useGeographic();
+
 for (let layer of layers) {
   let li = document.createElement("li");
   let input = document.createElement("input");
@@ -65,6 +68,13 @@ for (let layer of layers) {
     layer.layer!.setVisible(input.checked);
   };
   li.appendChild(input);
-  li.appendChild(document.createTextNode(layer.name));
+  let span = document.createElement("span");
+  span.appendChild(document.createTextNode(layer.name));
+  span.onclick = async () => {
+    let view = await layer.source!.getView();
+    let coords = fromUserExtent(view.extent!, view.projection!);
+    map.getView().fit(coords);
+  };
+  li.appendChild(span);
   mm.appendChild(li);
 }
